@@ -97,7 +97,7 @@ def get_max_overlap(pair):
     best = tools.selBest(pop, k=1)[0]
     max_area = best.fitness.values[0]
 
-    print 'max = %d, duration = %f' % (max_area, time.time() - beg_time)
+    # print 'max = %d, duration = %f' % (max_area, time.time() - beg_time)
     return int(max_area)
 
 
@@ -126,5 +126,6 @@ if __name__ == '__main__':
         max_overlap_list = np.array(list(futures.map(get_max_overlap, pairs)), dtype=np.int)
         ground_truth = np.maximum(ground_truth, max_overlap_list)
         print '%d/%d, duration = %f'%(i+1, 100, time.time()-beg_time)
+        sys.stdout.flush()
         with open('ground_truth', 'wb') as fp:
             pickle.dump(ground_truth, fp)
